@@ -21,7 +21,11 @@ public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int productId;
+	private Long productID;
+
+	@ManyToOne
+	@JoinColumn(name ="categoryID")
+	private Category category;
 
 	@Column(columnDefinition = "nvarchar(100) not null")
 	private String name;
@@ -48,9 +52,6 @@ public class Product implements Serializable {
 	private short status;
 
 
-	@ManyToOne
-	@JoinColumn(name ="categoryId")
-	private Category category;
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	private List<OrderDetail> orderDetails;

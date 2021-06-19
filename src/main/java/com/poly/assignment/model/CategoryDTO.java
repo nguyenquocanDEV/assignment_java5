@@ -3,6 +3,7 @@ package com.poly.assignment.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -25,9 +26,11 @@ public class CategoryDTO implements Serializable {
 	private Long categoryID;
 
 	@NotEmpty
-	@Min(value = 5)
+
 
 	private String name;
+
+	private Boolean isEdit = false;
 
 
 

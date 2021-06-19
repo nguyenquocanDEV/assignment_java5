@@ -18,19 +18,65 @@
     <main class="container">
         <header class="row text-center">
 
+            <div class="col">
+                <nav class="navbar navbar-expand-sm navbar-light bg-light">
+
+                    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavId">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Manage Customer</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Manage Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Manage Product</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Manage Order</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Manage Profile</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
         </header>
 
         <section class="row">
 
             <div class="col-8 offset-2  mt-4">
-                <img src="images/logo.jpg" alt="Assignment" style="width: 40%;  ">
+
                 <div class="card">
                     <div class="card-header">
                         <h2>List Category</h2>
                     </div>
                     <div class="card-body">
-                        <div th:if="@{message != null}" class="alert alert-primary" role="alert">
+                        <div th:if="${message != null}" class="alert alert-primary" role="alert">
                             <i> [[${message}]] </i>
+                        </div>
+                        <div class="row  mt-2 mb-2">
+                            <div class="col">
+                                <form th:action="@{/admin/categories/search}">
+                                    <div class="form-inline float-left">
+                                        <label for="name"></label>
+                                        <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="Input name">
+                                        <button class="btn btn-outline-primary">Search</button>
+                                    </div>
+                                </form>
+                                <div class="float-right">
+                                    <a class="btn btn-outline-primary" th:href="@{/admin/categories/add}">Add new</a>
+                                </div>
+                            </div>
                         </div>
                         <table class="table table-striped table-inverse ">
                             <thead class="thead-inverse">
@@ -42,10 +88,10 @@
                             </thead>
                             <tbody>
                                 <tr th:each=" category : ${categories}">
-                                    <td scope="row"> [[${category.categoryID}]] </td>
-                                    <td> th:text="${category.name}" </td>
+                                    <td scope="row" th:text=${category.categoryID}> </td>
+                                    <td th:text="${category.name}"> </td>
                                     <td>
-                                        <a th:href="@{'/admin/categories/view' + ${category.categoryID}}" class="btn btn-outline-info"><i class="fas fa-info-circle "></i></a>
+
                                         <a th:href="@{'/admin/categories/edit/'+ ${category.categoryID}}" class="btn btn-outline-warning"><i class="fas fa-edit "></i></a>
                                         <a th:href="@{'/admin/categories/delete/'+ ${category.categoryID}}" class="btn btn-outline-danger"><i class="fas fa-trash "></i></a>
 
@@ -55,30 +101,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="card-footer text-muted">
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+
                 </div>
 
 

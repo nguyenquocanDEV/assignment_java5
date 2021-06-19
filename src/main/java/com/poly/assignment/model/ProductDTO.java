@@ -3,6 +3,7 @@ package com.poly.assignment.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,30 +18,30 @@ import java.util.List;
 public class ProductDTO implements Serializable {
 
 
-	private int productId;
+    private Long productID;
+
+    private String name;
+
+    private int quantity;
+
+    private double unitPrice;
+
+    private String image;
+    private MultipartFile imageFile;
+
+    private String description;
 
 
-	private String name;
-
-	private int quantity;
-
-	private double unitPrice;
+    private double discount;
 
 
-	private String image;
+    private Date enteredDate;
 
 
-	private String description;
+    private short status;
+    private Long categoryID;
 
-
-	private double discount;
-
-
-	private Date enteredDate;
-
-
-	private short status;
-
+    private Boolean isEdit = false;
 
 
 }
