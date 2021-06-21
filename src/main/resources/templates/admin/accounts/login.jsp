@@ -22,35 +22,35 @@
 
         <section class="row">
 
-            <div class="col-8 offset-2  mt-4">
+            <div class="col-6 offset-3  mt-4">
 
 
-                <form th:action="@{/admin/categories/saveOrUpdate}" method="post" th:object="${category}">
+                <form th:action="@{/admin/login}" method="post" th:object="${account}">
                     <div class="card">
                         <div class="card-header">
-                            <h2 th:text="${category.isEdit ? 'Edit Category' : 'Add new category'}"></h2>
+                            <h2>Login</h2>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="categoryID">Category ID </label>
-                                <input type="hidden" th:field="*{isEdit}">
-                                <input type="text" class="form-control" th:field="*{categoryID}" aria-describedby="categoryHid" placeholder="CategoryID" readonly>
-                                <small id="categoryHid"  class="form-text text-muted">CategoryID is required</small>
+                            <div th:if="${message != null}" class="alert alert-primary" role="alert">
+                                <i> [[${message}]] </i>
                             </div>
                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" th:field="*{name}" aria-describedby="nameHid" placeholder="Category Name">
-                                <small id="nameHid" class="form-text text-muted">Name is required</small>
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" id="username" th:field="*{username}" aria-describedby="usernameHId" placeholder="Username">
+                                <small id="usernameHId"  class="form-text text-muted">username is invalid</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" id="password" th:field="*{password}" aria-describedby="passwordHId" placeholder="Password">
+                                <small id="passwordHId" class="form-text text-muted">Password is invalid</small>
                             </div>
                         </div>
                         <div class="card-footer text-muted">
 
-                            <button type="reset" class="btn btn-secondary">Reset</button>
-                            <a th:href="@{/admin/categories/}" class="btn btn-success">List Categories</a>
                             <button class="btn btn-primary"><i class="fas fa-save "></i>
-                            <span th:if="${category.isEdit}">Update</span>
-                            <span th:if="${!category.isEdit}">Save</span>
-                        </button>
+                                <span >Login</span>
+
+                            </button>
                         </div>
 
                     </div>

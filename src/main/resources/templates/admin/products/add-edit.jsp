@@ -59,11 +59,12 @@
                 <form action="/admin/products/saveOrUpdate" method="post" enctype="multipart/form-data" th:object="${product}">
                     <div class="card">
                         <div class="card-header">
-                            <h2>Add or Edit</h2>
+                            <h2 th:text="${product.isEdit ? 'Edit Product' : 'Add new product'}"></h2>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-7">
+                                    <input type="hidden" th:field="*{isEdit}">
                                     <div class="form-group">
                                         <label for="productID">Product ID</label>
                                         <input type="text" class="form-control" th:field="*{productID}" aria-describedby="productHid" placeholder="Product ID" readonly>
@@ -110,7 +111,7 @@
                                             }
                                         }
                                     </script>
-                                    <img id="image" src="/images/hp.jpg" class="img-fluid" alt="">
+                                    <img id="image" th:src="${product.image!= null ? '/admin/products/images/'+ product.image : '/images/noimage.jpg'}" src="/images/noimage.jpg" class="img-fluid" alt="">
                                     <div class="form-group">
                                         <label for="productImage">Image file</label>
                                         <input type="file" onchange="chooseFile(this)" class="form-control-file" name="imageFile" id="productImage" placeholder="Product Image" aria-describedby="ProductimageHid">
@@ -145,9 +146,12 @@
                             </div>
                         </div>
                         <div class="card-footer text-muted ">
-                            <a class="btn btn-success">New</a>
-                            <button class="btn btn-primary">Save</button>
-                            <a class="btn btn-danger float-right">Delete</a>
+                            <a th:href="@{/admin/products/add}" class="btn btn-success">New</a>
+                            <button class="btn btn-primary"><i class="fas fa-save "></i>
+                                <span th:if="${product.isEdit}">Update</span>
+                                <span th:if="${!product.isEdit}">Save</span>
+                            </button>
+                            <a th:if="${product.isEdit}" th:href="@{'/admin/products/delete/' + ${product.productID}} " class="btn btn-danger float-right">Delete</a>
                         </div>
                 </form>
                 </div>

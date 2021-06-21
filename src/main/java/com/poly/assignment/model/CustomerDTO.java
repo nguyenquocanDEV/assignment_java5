@@ -34,7 +34,7 @@ public class CustomerDTO implements Serializable {
 
 
 	private int status;
-
+	private Boolean isEdit = false;
 
 
 }

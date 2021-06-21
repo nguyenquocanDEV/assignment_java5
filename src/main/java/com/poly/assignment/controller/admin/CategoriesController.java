@@ -58,10 +58,10 @@ public class CategoriesController {
     @PostMapping(value = "saveOrUpdate")
     public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("category") CategoryDTO dto, BindingResult result) {
 
-//        //check nếu lỗi thì trả lại view trang add hoặc edit
-//        if (result.hasErrors()) {
-//            return new ModelAndView("admin/categories/add-edit");
-//        }
+        //check nếu lỗi thì trả lại view trang add hoặc edit
+        if (result.hasErrors()) {
+            return new ModelAndView("admin/categories/add-edit");
+        }
         Category entity = new Category();
         BeanUtils.copyProperties(dto, entity);
 
@@ -109,45 +109,4 @@ public class CategoriesController {
         return "admin/categories/list";
     }
 
-    // chưa hoàn thành
-    @GetMapping("searchPhanTrang")
-    //dùng required để xác định có param hoặc không có đều được
-    public String search(ModelMap model, @RequestParam(name = "name", required = false) String name,
-                         @RequestParam("page") Optional<Integer> page,
-                         @RequestParam("size") Optional<Integer> size) {
-
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(3);
-
-        Pageable pageable = PageRequest.of(currentPage, pageSize, Sort.by("name"));
-        Page<Category> resultPage = null;
-
-        //check xem có giá trị name được truyền vào từ param hay không
-        if (StringUtils.hasText(name)) {
-            resultPage = categoryDAO.findByNameContaining(name, pageable);
-            model.addAttribute("name", name);
-        } else {
-            resultPage = categoryDAO.findAll(pageable);
-        }
-
-        int totalPages = resultPage.getTotalPages();
-        if (totalPages > 0) {
-            int start = Math.max(1, currentPage);
-            int end = Math.min(currentPage + 2, totalPages);
-
-            if (totalPages > 5) {
-                if (end == totalPages) start = end - 5;
-                else if (start == 1) end = start + 5;
-
-            }
-            List<Integer> pageNumbers = IntStream.rangeClosed(start, end)
-                    .boxed().collect(Collectors.toList());
-
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
-        //thêm list cate vào attribute để hiển thị lên form
-        model.addAttribute("categoryPage", resultPage);
-
-        return "admin/categories/search";
-    }
 }

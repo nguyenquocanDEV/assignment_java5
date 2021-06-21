@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface CategoryDAO extends JpaRepository<Category, Long> {
     List<Category> findByNameContaining(String name);
-    Page<Category> findByNameContaining(String name, Pageable pageable);
+
 }

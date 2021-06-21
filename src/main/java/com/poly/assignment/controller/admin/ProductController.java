@@ -8,12 +8,12 @@ import com.poly.assignment.domain.Product;
 import com.poly.assignment.model.CategoryDTO;
 import com.poly.assignment.model.ProductDTO;
 import com.poly.assignment.services.StorageService;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -65,6 +66,8 @@ public class ProductController {
         if (opt.isPresent()) {
             Product entity = opt.get();
             BeanUtils.copyProperties(entity, dto);
+
+            dto.setCategoryID(entity.getCategory().getCategoryID());
             dto.setIsEdit(true);
 
             model.addAttribute("product", dto);
@@ -72,6 +75,7 @@ public class ProductController {
             return new ModelAndView("admin/products/add-edit");
         }
 
+        //khi không thấy product thì hiện thị lại list product
         model.addAttribute("message", "Category is not existed");
 
         return new ModelAndView("forward:/admin/products/", model);
@@ -85,20 +89,23 @@ public class ProductController {
 //            return new ModelAndView("admin/products/add-edit");
 //        }
         Product entity = new Product();
+
         BeanUtils.copyProperties(dto, entity);
 
         Category category = new Category();
         category.setCategoryID(dto.getCategoryID());
         entity.setCategory(category);
 
-        if(!dto.getImageFile().isEmpty()){
+
+
+        if (!dto.getImageFile().isEmpty()) {
             UUID uuid = UUID.randomUUID();
             String uuString = uuid.toString();
 
-            entity.setImage(storageService.getStoredFilename(dto.getImageFile(),uuString));
-            storageService.store(dto.getImageFile(),entity.getImage());
+            entity.setImage(storageService.getStoredFilename(dto.getImageFile(), uuString));
+            storageService.store(dto.getImageFile(), entity.getImage());
         }
-
+        entity.setImage(dto.getImage());
         productsDAO.save(entity);
 
         model.addAttribute("message", "product is saved !");
@@ -107,10 +114,17 @@ public class ProductController {
     }
 
     @GetMapping("delete/{productID}")
-    public ModelAndView delete(ModelMap model, @PathVariable("productID") Long productID) {
+    public ModelAndView delete(ModelMap model, @PathVariable("productID") Long productID) throws IOException {
 
-        categoryDAO.deleteById(productID);
-        model.addAttribute("message", "product is delete");
+        Optional<Product> opt = productsDAO.findById(productID);
+        if (opt.isPresent()) {
+            if (!StringUtils.isEmpty(opt.get().getImage())) {
+                storageService.delete(opt.get().getImage());
+            }
+            productsDAO.delete(opt.get());
+            model.addAttribute("message", "product is delete");
+        }
+        model.addAttribute("message", "product not found");
 
         return new ModelAndView("forward:/admin/products/", model);
     }
@@ -143,5 +157,16 @@ public class ProductController {
         return "admin/products/list";
     }
 
+    @GetMapping("/images/{filename:.+}")
+    //dùng responseBody để không trả về view
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+        Resource file = storageService.loadAsResource(filename);
+
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+
+
+    }
 
 }
