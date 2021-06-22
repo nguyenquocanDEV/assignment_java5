@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layout.html}">
 
 <head>
     <title>Title</title>
@@ -18,39 +17,7 @@
 
 <body>
 <main class="container">
-    <header class="row text-center">
-        <div class="col">
-            <nav class="navbar navbar-expand-sm navbar-light bg-light">
-                <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
-                        data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Manage Customer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Manage Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Manage Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Manage Order</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Manage Profile</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <div class="container" layout:fragment="content">
     <section class="row">
         <div class="col mt-4">
             <div class="card">
@@ -75,6 +42,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Password</th>
                             <th>Phone</th>
                             <th></th>
                         </tr>
@@ -84,6 +52,7 @@
                             <td th:text="${item.customerId} "></td>
                             <td th:text="${item.name} "></td>
                             <td th:text="${item.email} "></td>
+                            <td th:text="${item.password} "></td>
                             <td th:text="${item.phone} "></td>
 
                             <td>
@@ -99,7 +68,8 @@
             </div>
         </div>
     </section>
-
+    </div>
+</main>
 </body>
 
 </html>

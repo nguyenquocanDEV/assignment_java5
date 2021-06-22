@@ -25,7 +25,7 @@
             <div class="col-6 offset-3  mt-4">
 
 
-                <form th:action="@{/admin/login}" method="post" th:object="${account}">
+                <form th:action="@{/admin/logins/login}" method="post" th:object="${account}">
                     <div class="card">
                         <div class="card-header">
                             <h2>Login</h2>

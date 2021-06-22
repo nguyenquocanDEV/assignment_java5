@@ -1,0 +1,150 @@
+body {
+    font-family: "Montserrat", sans-serif;
+    color: #555555;
+}
+.container a {
+    font-weight: bold;
+}
+.container a:hover {
+    color: darkgoldenrod !important;
+}
+.giohang {
+    height: 30px;
+    
+}
+.giohang i {
+    transition-duration: 0.3s;
+}
+.giohang i:hover {
+    transform: scale(2);
+}
+.giohang .sl {
+    position: relative;
+    top: -40px;
+    left: 20px;
+    color: white;
+    background-color: darkgoldenrod;
+    border-radius: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+/* header {
+} */
+header.sticky {
+
+    width: 105%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    box-shadow: 0px 5px 15px darkgray;
+}
+.box-product{
+    border-top: 1px solid darkgray;
+    position: relative;
+}
+.anh {
+    overflow: hidden;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 100%;
+    height: 60%;
+}
+.thumbnail {
+    width: 100%;
+    height: 100%;
+}
+.thumbnail img{
+    width: 100%;
+    height: auto;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    transition-duration: 0.3s;
+    
+}
+.thumbnail img:hover {
+    transform: scale(1.2);
+    
+}
+.product {
+    background-color: white;
+    box-shadow: 5px 5px 10px 0px darkgray;
+    border-radius: 10px;
+}
+.title {
+    position: relative;
+    top: 30px;
+    left: 0;
+    background-color: white;
+    text-align: center;
+}
+.title h3 {
+    font-weight: bold;
+}
+ul li a {
+    color: black;
+}
+ul li a:hover {
+    text-decoration: none;
+    color: darkgoldenrod;
+}
+/* detail  */
+.image-detail {
+    width: 100%;
+}
+.title-detail h5{
+    font-weight: bold;
+    color: #555555;
+}
+.title-detail ul {
+    margin-left: 20px;
+    padding: 0px;
+}
+.title-detail ul li {
+    margin: 15px;
+    padding: 0px;
+    font-size: 18px;
+}
+.detail-number {
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    font-size: 18px;
+}
+.icon-box {
+    background-color: #efefef;
+    border-radius: 10px;
+    font-size: 18px;
+    color: gray;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+}
+.icon-box img {
+    margin: 5px;
+}
+/* gio hang */
+td {
+    justify-content: center;
+}
+td a {
+    text-decoration: none !important;
+    color: gray;
+}
+tr td img {
+    width: 100px;
+}
+/* login */
+.logo-lg {
+    text-align: center;
+    margin: 20px;
+    border-radius: 100%;
+}
+.logo-lg img {
+    margin-top: 50%;
+}
+.logo-lg h1 {
+    margin-top: 50%;
+    color: white;
+}

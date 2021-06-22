@@ -10,13 +10,13 @@ public interface ShoppingCartService {
 
     void add(CartItemDTO item);
 
-    void remove(Long productId);
+    void remove(Long productID);
 
     Collection<CartItemDTO> getProduct();
 
     void clear();
 
-    void update(Long productId, int quantity);
+    void update(Long productID, int quantity);
 
     double getAmount();
 

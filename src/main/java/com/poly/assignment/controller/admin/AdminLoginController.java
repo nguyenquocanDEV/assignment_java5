@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Controller
 @SessionAttributes("sessionScope")
-@RequestMapping("admin/")
+@RequestMapping("admin/logins")
 public class AdminLoginController {
     @Autowired
     AccountsDAO accountsDAO;
@@ -66,7 +66,7 @@ public class AdminLoginController {
     public ModelAndView logOut() {
         sessionService.remove("account");
         ;
-        return new ModelAndView("forward:/admin/");
+        return new ModelAndView("forward:/admin/logins");
 
     }
 

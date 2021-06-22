@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layout.html}">
 
 <head>
     <title>Title</title>
@@ -16,9 +15,7 @@
 
 <body>
     <main class="container">
-        <header class="row text-center">
-
-        </header>
+        <div class="container" layout:fragment="content">
 
         <section class="row">
 
@@ -59,7 +56,7 @@
                 </form>
             </div>
         </section>
-        <footer class="row"></footer>
+        </div>
     </main>
 
     <!-- Optional JavaScript -->

@@ -21,11 +21,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public void add(CartItemDTO item) {
         // kiem tra sp co trong gio hang chua
-        CartItemDTO exitCartItem = map.get(item.getProductId());
+        CartItemDTO exitCartItem = map.get(item.getProductID());
         if (exitCartItem != null) {
             exitCartItem.setQuantity(item.getQuantity() + exitCartItem.getQuantity());
         } else {
-            map.put(item.getProductId(), item);
+            map.put(item.getProductID(), item);
         }
 
     }
@@ -33,8 +33,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     // xoa sp trong gio hang
 
     @Override
-    public void remove(Long productId) {
-        map.remove(productId);
+    public void remove(Long productID) {
+        map.remove(productID);
     }
 
     // lay danh sach sp
@@ -54,11 +54,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     // update sp trong gio hang
 
     @Override
-    public void update(Long productId, int quantity) {
-        CartItemDTO item = map.get(productId);
+    public void update(Long productID, int quantity) {
+        CartItemDTO item = map.get(productID);
         item.setQuantity(quantity);
         if (quantity <= 0) {
-            map.remove(productId);
+            map.remove(productID);
         }
     }
 
@@ -68,6 +68,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public double getAmount() {
         return map.values().stream().mapToDouble(item -> item.getQuantity() * item.getUnitPrice()).sum();
     }
+
     //lay sl tat ca sp
 
     @Override
